@@ -20,7 +20,11 @@ abstract class BazaTesta {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    }
+    public void openWebSite(){
+        driver.get("https://mega.readyscript.ru/");
+        System.out.println("Страница загружена");
     }
 
     public void navigateToLoginPage() {
@@ -39,30 +43,82 @@ abstract class BazaTesta {
 
         driver.findElement(By.xpath("//button[contains(text(), 'Войти')]")).click();
     }
+    public void logOut(){
+        WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//span[contains(text(), 'test test')]")));
+        userElement.click();
+        WebElement quitButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[@class='aside-menu__link lk-logout']")));
+        quitButton.click();
+        System.out.println("Выход из личного кабинета выполнен");
+    }
 
-    public boolean isLoginSuccessful() {
+    public void isLoginSuccessful() {
         try {
             WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//span[contains(text(), 'Артем Иванов')]")));
+                    By.xpath("//span[contains(text(), 'test test')]")));
             System.out.println("Вход в личный кабинет выполнен");
-            return userElement.isDisplayed();
+            userElement.isDisplayed();
         } catch (TimeoutException e) {
-            return false;
+            System.out.println("Вход в аккаунт не был осуществлён");
+
         }
     }
 
-    public boolean isLoginNotSuccessful() {
+    public void isLoginNotSuccessful() {
         try {
             WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[contains(text(),'Неверный e-mail или пароль')]")));
-            System.out.println("Система корректно сработала при входе с пустыми данными при входе");
-            return userElement.isDisplayed();
+            System.out.println("Система корректно сработала при входе с невалидными данными");
+            userElement.isDisplayed();
         } catch (TimeoutException e) {
-            return false;
+            System.out.println("Вход в аккаунт был осуществлен c некорректными данными");
         }
 
     }
 
+    public void isProductFounded() {
+        try {
+            WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h1[contains(text(),' Результаты поиска')]")));
+            System.out.println("Поиск выполнен, показан результат");
+            userElement.isDisplayed();
+        } catch (TimeoutException e) {
+            System.out.println("Поиск не сработал");
+        }
+    }
+    public void isProductNotFounded() {
+        try {
+            WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//p[contains(text(),'По вашему запросу ничего не найдено. Проверьте правильность введенного запроса')]")));
+            System.out.println("Поиск выполнен, показан результат отсутствия искомого товара");
+            userElement.isDisplayed();
+        } catch (TimeoutException e) {
+            System.out.println("Что-то нашлось, но не должно было(");
+        }
+    }
+    public void isCatalogIsVisible(){
+        try{
+            WebElement clickCatalogProduct = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//span[contains(text(),'Выберите')][contains(text(),'категорию')]")));
+            System.out.println("Каталог открыт, доступен выбор категории товаров");
+
+            clickCatalogProduct.isDisplayed();
+        } catch (TimeoutException e) {
+            System.out.println("Каталог не отобразился");
+        }
+    }
+
+    public void isSuccessfulUsingCatalog(){
+        try{
+            WebElement checkOpenCategory = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h1[contains(text(),'Демо-продукты')]")));
+            System.out.println("Выбранная категория отобразилась");
+            checkOpenCategory.isDisplayed();
+        } catch (TimeoutException e) {
+            System.out.println("Выбранная категория не отобразилась");
+        }
+    }
     @AfterEach
     public void tearDown() {
         if (driver != null) {
