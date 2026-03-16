@@ -9,7 +9,7 @@ public class TestFindProduct extends BazaTesta{
             openWebSite();
             navigateToLoginPage();
             performLogin("test+2@gmail.com", "test");
-            isLoginSuccessful();
+            isLoginPasswordSuccessful();
 
             WebElement clickToFind = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//input[@placeholder='поиск в каталоге']")));
@@ -27,7 +27,7 @@ public class TestFindProduct extends BazaTesta{
             openWebSite();
             navigateToLoginPage();
             performLogin("test+2@gmail.com", "test");
-            isLoginSuccessful();
+            isLoginPasswordSuccessful();
 
             WebElement clickToFind = wait.until(ExpectedConditions.elementToBeClickable(
                     By.xpath("//input[@placeholder='поиск в каталоге']")));

@@ -37,11 +37,11 @@ abstract class BazaTesta {
         emailField.clear();
         emailField.sendKeys(email);
 
-        WebElement passwordField = driver.findElement(By.id("input-auth2"));
+        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-auth2")));
         passwordField.clear();
         passwordField.sendKeys(password);
 
-        driver.findElement(By.xpath("//button[contains(text(), 'Войти')]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Войти')]"))).click();
     }
     public void logOut(){
         WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -53,7 +53,7 @@ abstract class BazaTesta {
         System.out.println("Выход из личного кабинета выполнен");
     }
 
-    public void isLoginSuccessful() {
+    public void isLoginPasswordSuccessful() {
         try {
             WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//span[contains(text(), 'test test')]")));
@@ -65,7 +65,7 @@ abstract class BazaTesta {
         }
     }
 
-    public void isLoginNotSuccessful() {
+    public void isLoginOrPasswordNotSuccessful() {
         try {
             WebElement userElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[contains(text(),'Неверный e-mail или пароль')]")));

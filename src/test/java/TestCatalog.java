@@ -9,7 +9,7 @@ public class TestCatalog extends BazaTesta {
         openWebSite();
         navigateToLoginPage();
         performLogin("test+2@gmail.com", "test");
-        isLoginSuccessful();
+        isLoginPasswordSuccessful();
 
         WebElement clickCatalog = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//span[contains(text(),'Каталог')]")));
