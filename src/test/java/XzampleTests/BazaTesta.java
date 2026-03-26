@@ -1,3 +1,5 @@
+package XzampleTests;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +22,8 @@ abstract class BazaTesta {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     }
     public void openWebSite(){
         driver.get("https://mega.readyscript.ru/");
@@ -30,6 +33,10 @@ abstract class BazaTesta {
     public void navigateToLoginPage() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Личный кабинет')]"))).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(), 'Вход')]"))).click();
+    }
+    public void navigateToRegisterPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Личный кабинет')]"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Регистрация')]"))).click();
     }
 
     public void performLogin(String email, String password) {
@@ -122,6 +129,7 @@ abstract class BazaTesta {
     @AfterEach
     public void tearDown() {
         if (driver != null) {
+            driver.close();
             driver.quit();
         }
     }
