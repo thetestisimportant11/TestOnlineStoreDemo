@@ -10,10 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestLogin extends BazaTesta {
 
     @Test
-    public void test(){
-
-    }
-    @Test
     public void testSuccessfulLogin(){
         openWebSite();
         navigateToLoginPage();
@@ -99,7 +95,7 @@ public class TestLogin extends BazaTesta {
         navigateToLoginPage();
         WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-auth2")));
         passwordField.clear();
-        passwordField.sendKeys("password");
+        passwordField.sendKeys("test");
 
         String typeAttribute = passwordField.getAttribute("type");
         assertEquals("password", typeAttribute, "В поле 'Пароль' виден текст");

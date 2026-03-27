@@ -31,12 +31,14 @@ public class MainPage extends SeleniumForPage {
     public MainPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
         driver.get("https://mega.readyscript.ru/");
+        System.out.println("Открыта главная страница сайта");
         PageFactory.initElements(driver, this);
     }
 
     public LoginPage openLoginPage() {
         waitForClickable(buttonCabinet).click();
         waitForClickable(buttonEntryCabinet).click();
+        System.out.println("Открыта страница входа");
         return new LoginPage(driver, wait);
     }
     public void checkNameAfterLogin() {
